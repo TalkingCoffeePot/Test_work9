@@ -9,7 +9,6 @@ from datetime import datetime
 from django.views.generic.edit import FormMixin
 from django.db.models import Q
 from django.http import JsonResponse
-# Create your views here.
 
 class SearchResultsView(ListView):
     model = PostModel

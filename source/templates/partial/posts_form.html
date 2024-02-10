@@ -6,7 +6,9 @@
         <h6>{{post.author.number}}</h6>
         {% if request.user == post.author %}
           <button id='delete' class="btn btn-danger" value="{{post.pk}}">Удалить</button>
-          <a href="{% url 'post_edit' post.pk %}" class="btn btn-primary" value="{{post.pk}}">Редактировать</a>
+          {% if post.moderate != 'U' %}
+            <a href="{% url 'post_edit' post.pk %}" class="btn btn-primary" value="{{post.pk}}">Редактировать</a>
+          {% endif %}
         {% endif %}
       </div>
     </div>
