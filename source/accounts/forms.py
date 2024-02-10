@@ -7,13 +7,12 @@ class NewUserForm(UserCreationForm):
         model = Profile
         fields = [
             'username', 'password1', 'password2',
-            'first_name', 'email', 
+            'first_name',
             'info', 'number'
         ]
         widgets = {
             'username' : forms.TextInput(attrs={'placeholder': 'Логин', 'class': 'input_box'}),
             'first_name' : forms.TextInput(attrs={'placeholder': 'Имя', 'class': 'input_box'}),
-            'email' : forms.EmailInput(attrs={'placeholder': 'Электронная почта', 'class': 'input_box'}),
             'info' : forms.Textarea(attrs={'placeholder': 'О себе', 'class': 'input_box text_box'}),
             'number' : forms.NumberInput(attrs={'placeholder': 'Номер телефона', 'class': 'input_box'}),
         }

@@ -1,7 +1,7 @@
 from typing import Any
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from feed.forms import CommentForm, PostForm
 from feed.models import PostModel
@@ -29,11 +29,11 @@ class SearchResultsView(ListView):
         )
         return this_objects
     
+
 class FeedView(ListView):
     template_name = 'feed.html'
     context_object_name = 'post_obj'
     model = PostModel
-
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context =  super().get_context_data(**kwargs)
@@ -69,7 +69,6 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         return redirect('feed')
  
 
-
 class PostDetailedView(FormMixin, DetailView):
     login_url = 'accounts:log_in'
     template_name = 'detailed_post.html'
@@ -93,6 +92,7 @@ class PostDetailedView(FormMixin, DetailView):
         self.object.save()
         return super().form_valid(form)
     
+
 class ModerateView(ListView):
     template_name='moderate.html'
     context_object_name = 'post_obj'
@@ -113,6 +113,31 @@ class ModerateView(ListView):
 
         post.save()
         return JsonResponse(answer)
+
+
+class PostEditView(LoginRequiredMixin, UpdateView):
+    login_url = 'accounts:log_in'
+    model = PostModel
+    form_class = PostForm
+    template_name = 'content/edit_post.html'
+    pk_url_kwarg = 'post_pk'
+    context_object_name = 'post_obj'
+
+    def get_success_url(self, **kwargs):
+        return reverse('feed')
+    
+    def get_context_data(self, **kwargs):
+        kwargs['post_obj'] = self.get_object()
+        kwargs['form'] = self.get_form()
+        return super().get_context_data(**kwargs)
+
+
+class PostDeleteView(View):
+    def post(self, request, *args, **kwargs):
+        post = PostModel.objects.get(id=request.POST.get('postid'))
+        answer = {}
+
+
 
 
 

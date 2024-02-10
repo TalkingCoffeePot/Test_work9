@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}{% static 'css/style.css' %}{% endblock %}
+{% block content %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}    
+        <div class="card card_form mt-5">
+            <div class="row">
+                <div class="info card-body col-6">
+                    <div class="form-control mb-3 mt-3">{{form.image}}</div>
+                    <div class="form-control mb-3 mt-3">{{form.title}}</div>
+                    <h6>Категория</h6>
+                    <div class="form-control mb-3 mt-3">{{form.category}}</div>
+                    <h6>Цена</h6>
+                    <div class="form-control mb-3 mt-3">{{form.price}}</div>
+                </div>
+                <div class="card-body col-6">
+                    <div class="text form-control mb-3 mt-3">{{form.text}}</div>
+                    <button type="submit" class="btn btn-primary">Обновить</button>
+                </div>
+            </div>
+          </div>
+    </form>
+<style>
+    .card {
+        width: 100% !important;
+    }
+    .text {
+        height: 80%;
+    }
+</style>
+{% endblock %}

@@ -1,9 +1,13 @@
 
   <div class="card mt-3 mb-3" style="width: 70%; margin: auto">
     <div class="card-body row">
-      <div class="col-2">
+      <div class="col-12">
         <a href="{% url 'accounts:profile' post.author.pk %}" class="text-dark" style="text-decoration: none;"><h5 class="card-title">{{post.author}}</h5></a>
         <h6>{{post.author.number}}</h6>
+        {% if request.user == post.author %}
+          <button id='delete' class="btn btn-danger" value="{{post.pk}}">Удалить</button>
+          <a href="{% url 'post_edit' post.pk %}" class="btn btn-primary" value="{{post.pk}}">Редактировать</a>
+        {% endif %}
       </div>
     </div>
     <a href="{% url 'feed_post' post.pk %}" class="card-img-top">

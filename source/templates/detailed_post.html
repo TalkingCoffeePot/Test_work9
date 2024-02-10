@@ -5,26 +5,32 @@
 <div class="user_feed">
     {% include 'partial/posts_form.html' %}
     {% if request.user != post.author %}
-      <h6 id="write_comment">Написать комментарий</h6>
+      
         <form method="post">
             {% csrf_token %}
-            <div class="row">
-                <div class="col-10">
+            <div class="row comments">
+              <h6 id="write_comment">Написать комментарий</h6>
+                <div class="col-12">
                     {{form.text}}
                 </div>
+              <button type="submit" class="btn btn-primary mt-3 mb-3">Комментировать</button>
             </div>
-            <button type="submit" class="btn btn-primary mt-3 mb-3">Комментировать</button>
+            
         </form>
       {% endif %}
       {% for comment in post.p_comment.all %}
-        <div class="task_box">
-            <span class="fs-4 fw-medium">
+        <div class="card comments">
+          <div class="card-body">
+            <span class="card-title fs-4 fw-medium">
                 <a href="{% url 'accounts:profile' comment.get_author.pk %}" class="text-dark" style="text-decoration: none;">{{comment.get_author}}</a>
             </span>
-            <p>{{comment.text}}</p>
+            <p class="card-text">{{comment.text}}</p>
+          </div>
+            
         </div>
       {% endfor %}
     </div>
   </div>
 </div>
+
 {% endblock %}

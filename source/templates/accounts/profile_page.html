@@ -30,9 +30,9 @@
             <div class="posts d-flex flex-row mt-3">
                 {% if request.user != profile_obj %}
                     {% for post in profile_obj.usr_posts.all %}
-                        {% if post.moderate == 'W' %}
+                        {% if post.moderate == 'M' %}
                             <div class="card m-3 justify-content-center" style="width: 18rem;">
-                                <a href="{% url 'accounts:detailed_post' user.pk post.pk %}"><img src="{{post.image.url}}" class="img-fluid"></a>
+                                <a href="{% url 'accounts:detailed_post' profile_obj.pk post.pk %}"><img src="{{post.image.url}}" class="img-fluid"></a>
                             </div>
                         {% endif %}
                     {% endfor %}

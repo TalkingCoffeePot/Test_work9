@@ -29,8 +29,7 @@ class UserRegisterView(CreateView):
             next_url = reverse('feed')
         return next_url
     
-class UserProfile(LoginRequiredMixin, DetailView):
-    login_url = 'accounts:log_in'
+class UserProfile(DetailView):
     template_name = 'accounts/profile_page.html'
     model = Profile
     context_object_name = 'profile_obj'
