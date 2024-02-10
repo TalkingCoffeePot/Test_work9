@@ -14,7 +14,7 @@ class NewUserForm(UserCreationForm):
             'username' : forms.TextInput(attrs={'placeholder': 'Логин', 'class': 'input_box'}),
             'first_name' : forms.TextInput(attrs={'placeholder': 'Имя', 'class': 'input_box'}),
             'info' : forms.Textarea(attrs={'placeholder': 'О себе', 'class': 'input_box text_box'}),
-            'number' : forms.NumberInput(attrs={'placeholder': 'Номер телефона', 'class': 'input_box'}),
+            'number' : forms.NumberInput(attrs={'placeholder': "Номер телефона (Без '+')", 'class': 'input_box'}),
         }
         
     def clean_email(self):
@@ -29,6 +29,7 @@ class NewUserForm(UserCreationForm):
             raise forms.ValidationError("Хотя бы одно поле ИМЕНИ должно быть заполнено")
         return cleaned_data
     
+
 class UserEditForm(UserChangeForm):
     class Meta:
         model= Profile

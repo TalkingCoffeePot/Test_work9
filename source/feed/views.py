@@ -13,6 +13,7 @@ from django.http import JsonResponse
 class SearchResultsView(ListView):
     model = PostModel
     template_name = "search_results.html"
+    ordering = ['-date_add']
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context =  super().get_context_data(**kwargs)
