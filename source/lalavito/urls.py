@@ -15,10 +15,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from feed.views import FeedView, PostDetailedView, SearchResultsView, ModerateView
+from accounts.views import UserRegisterView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('accounts.urls')),
+    path('', FeedView.as_view(), name='feed'),
+    path('sign_up/', UserRegisterView.as_view()),
+    path('feed/<int:post_pk>/', PostDetailedView.as_view(), name='feed_post'),
+    path('search_result/', SearchResultsView.as_view(), name='search_results'),
+    path('moderation/', ModerateView.as_view(), name='moderation')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

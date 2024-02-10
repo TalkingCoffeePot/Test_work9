@@ -1,0 +1,42 @@
+
+  <div class="card mt-3 mb-3" style="width: 70%; margin: auto">
+    <div class="card-body row">
+      <div class="col-2">
+        <a href="{% url 'accounts:profile' post.author.pk %}" class="text-dark" style="text-decoration: none;"><h5 class="card-title">{{post.author}}</h5></a>
+        <h6>{{post.author.number}}</h6>
+      </div>
+    </div>
+    <a href="{% url 'feed_post' post.pk %}" class="card-img-top">
+      <div class="justify-content-center d-flex">
+        <img src="{{post.image.url}}" >
+      </div>
+    </a>
+
+    <div class="card-body">
+      <p class="card-text">{{post.text}}</p>
+      <h6 class="card-text" data-artId="{{post.pk}}">{{post.get_moderate_display}}</h6>
+      <div class="sub_section d-flex flex-row">
+        <div class="col-4">
+          <span>Категория:</span>
+          <h6 id="sub" >{{post.category}}</h6>
+        </div>
+        <div class="col-4">
+          <span>Цена:</span>
+          <h6 id="sub">{{post.price}}</h6>
+        </div>
+        <div class="col-4">
+          <span>Дата публикации</span>
+          <h6 id="" >
+            {% if post.moderation != 'M' %}
+              {{post.date_add}}
+            {% else %}
+              {{post.date_moderate}}
+            {% endif %}
+            </h6>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    
+      

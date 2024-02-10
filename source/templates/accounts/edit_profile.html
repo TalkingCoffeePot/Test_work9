@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}{% static 'css/style.css' %}{% endblock %}
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}    
+    <div class="card card_form mt-5">
+        <img src="{{profile_obj.avatar.url}}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">Редактирование профиля</h5>  
+            <div class="form-control mb-3 mt-3">{{form.info}}</div>
+            <div class="form-control mb-3 mt-3">{{form.number}}</div>
+            <button type="submit" class="btn btn-primary">Подтвердить</button>
+        </div>
+      </div>
+</form>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}{% static 'css/style.css' %}{% endblock %}
+{% block content %}
+<div class="user_feed">
+    {% for post in post_obj %}
+        {% if post.moderate == 'W' %}
+            {% include 'partial/posts_form.html' %}
+            <div>
+                <button id='yes' class="btn btn-success" value="{{post.pk}}">Опубликовать</button>
+                <button id='no' class="btn btn-danger" value="{{post.pk}}">Отклонить</button>
+            </div>
+        {% endif %}
+    {% endfor %}
+    <script>
+        $(document).on('click', '.btn', function(e) {
+            const val = $(this).val()
+            const an = $(this).attr('id')
+            const b = this
+            e.preventDefault()
+            $.ajax({
+                headers: {"X-CSRFToken": '{{csrf_token}}'},
+                type: 'POST',
+                url: "{% url 'moderation' %}",
+                data: {
+                    postid: $(this).val(),
+                    mod: $(this).attr('id'),
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    action: 'post'
+                },
+                success: function(json) {
+                    console.log(json)
+                    let c = `"${val}"`
+                    let status = document.querySelector(`[data-artId=${c}]`)
+                    status.innerHTML = json['answer']
+                }
+            })
+        })
+    </script>
+</div>
+{% endblock %}

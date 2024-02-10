@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}{% static 'css/style.css' %}{% endblock %}
+{% block content %}
+<div class="user_feed">
+    {% for post in post_obj %}
+        {% if post.moderate == 'M' %}
+            {% include 'partial/posts_form.html' %}
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

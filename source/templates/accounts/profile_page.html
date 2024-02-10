@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+{% block style %}{% static 'css/style.css' %}{% endblock %}
+{% block title %}Main Page{% endblock %}
+{% block content %}
+        <div class="container mt-5">
+            <div class="usr_info d-flex flex-row justify-content-around" style="width: 50%;">
+                <div class="usr_avatar" style="width: 20%;">
+                    <img class="user_avatar" src="{{profile_obj.avatar.url}}" style="width: 100%;" alt="">
+                </div>
+                <div class="text_info">
+                    <div class="usr_name">
+                        <div class="d-flex flex-row">
+                            <h3>{{profile_obj.username}}</h3>
+                            {% if request.user == profile_obj %}
+                                <a href="{% url 'accounts:edit_profile' profile_obj.pk %}" class="btn btn-secondary ms-5">Редактирование</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="counts mt-3">
+                        <span>{{profile_obj.usr_posts.all.count}} Публикаций</span>
+                    </div>
+                    <div class="usr_bio mt-3">
+                        <h6>{{profile_obj.first_name}}</h6>
+                        <p>{{profile_obj.info}}</p>
+                        <p>{{profile_obj.number}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="posts d-flex flex-row mt-3">
+                {% if request.user != profile_obj %}
+                    {% for post in profile_obj.usr_posts.all %}
+                        {% if post.moderate == 'W' %}
+                            <div class="card m-3 justify-content-center" style="width: 18rem;">
+                                <a href="{% url 'accounts:detailed_post' user.pk post.pk %}"><img src="{{post.image.url}}" class="img-fluid"></a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    {% for post in profile_obj.usr_posts.all %}
+                        <div class="card m-3 justify-content-center" style="width: 18rem;">
+                            <a href="{% url 'accounts:detailed_post' user.pk post.pk %}"><img src="{{post.image.url}}" class="img-fluid"></a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <style>
+            .img-fluid {
+                display: block;
+                margin: auto;
+            }
+        </style>
+{% endblock %}

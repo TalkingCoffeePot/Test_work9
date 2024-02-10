@@ -5,17 +5,28 @@ from accounts.models import Profile
 class Category(models.Model):
     title = models.CharField('Название', max_length=150)
 
+    def __str__(self):
+        return f'{self.title}'
+
 
 class PostModel(models.Model):
+    MOD_CHOICES = (
+        ('M', 'Опубликовано'),
+        ('W', 'На модерации'),
+        ('U', 'Отклонено'),
+        ('D', 'На удаление')
+    )
+
     image = models.ImageField('Картинка', upload_to='post_images', null=True, blank=True)
     author = models.ForeignKey(Profile, verbose_name='Пользователь', related_name='usr_posts', on_delete=models.CASCADE)
     title = models.CharField('Заголовок', max_length=100)
     text = models.TextField('Текст публикации', max_length=1000)
     category = models.ForeignKey(Category, verbose_name='Категория', related_name='pCategory', on_delete=models.SET_NULL, null=True, blank=True)
     price = models.IntegerField('Цена', default=1)
+    moderate = models.CharField('Модерация', max_length=1, blank=False, null=True, choices=MOD_CHOICES, default='W')
     date_add = models.DateTimeField('Дата публикации', auto_now_add=True)
     date_edit = models.DateTimeField('Дата редактирования', auto_now=True)
-    date_moderate = models.DateTimeField('Дата публикации')
+    date_moderate = models.DateTimeField('Дата публикации', null=True, blank=True)
     
 
 class CommentModel(models.Model):

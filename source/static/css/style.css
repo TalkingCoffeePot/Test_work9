@@ -1,0 +1,51 @@
+html {
+    height: 100vh;
+}
+body {
+    background-color:blanchedalmond !important;
+}
+.card_form {
+    width: 40%;
+    margin: auto;
+}
+#id_password1, #id_password2 {
+    border: 0;
+    width: 100%;
+    outline: none;
+}
+.input_box {
+    border: 0;
+    width: 100%;
+    color: black;
+}
+
+.form_control textarea {
+    height: 100px;
+}
+.input_box:focus {
+    outline: none;
+}
+@media screen and (max-width: 991px) {
+    .card_form {
+      width: 60%;
+      margin-top: 0;
+    }
+  }
+@media screen and (max-width: 600px) {
+    .card_form {
+      width: 100%;
+      margin-top: 0;
+    }
+  }
+
+img.user_avatar {
+    border-radius: 50%;
+}
+.usr_feed {
+    background-color:burlywood;
+    background-size: cover;
+}
+#sub {
+    width:65%;
+    display: inline-block;
+}

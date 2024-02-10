@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}{% static 'css/style.css' %}{% endblock %}
+{% block content %}
+<form method="post">
+{% csrf_token %}    
+    <div class="card card_form mt-5">
+        <img src="{% static 'images/title.png' %}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">Вход</h5> 
+            <div class="form-control mt-3">{{form.username}} <span>Логин</span></div>
+            <div class="form-control mt-3">{{form.password}} <span>Паролль</span></div>
+            <button type="submit" class="btn btn-primary mt-3">Войти</button>
+            <a href="{% url 'accounts:register_user' %}" type="submit" class="btn btn-primary mt-3">Регистрация</a> 
+        </div>
+      </div>
+</form>
+{% endblock %}
