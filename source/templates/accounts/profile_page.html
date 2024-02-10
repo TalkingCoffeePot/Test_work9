@@ -38,9 +38,11 @@
                     {% endfor %}
                 {% else %}
                     {% for post in profile_obj.usr_posts.all %}
-                        <div class="card m-3 justify-content-center" style="width: 18rem;">
-                            <a href="{% url 'accounts:detailed_post' user.pk post.pk %}"><img src="{{post.image.url}}" class="img-fluid"></a>
-                        </div>
+                        {% if post.moderate != 'D' %}
+                            <div class="card m-3 justify-content-center" style="width: 18rem;">
+                                <a href="{% url 'accounts:detailed_post' user.pk post.pk %}"><img src="{{post.image.url}}" class="img-fluid"></a>
+                            </div>
+                        {% endif %}
                     {% endfor %}
                 {% endif %}
             </div>
@@ -51,4 +53,5 @@
                 margin: auto;
             }
         </style>
+    
 {% endblock %}

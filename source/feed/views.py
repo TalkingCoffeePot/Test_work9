@@ -4,7 +4,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from feed.forms import CommentForm, PostForm
-from feed.models import PostModel
+from feed.models import PostModel, CommentModel
 from datetime import datetime
 from django.views.generic.edit import FormMixin
 from django.db.models import Q
@@ -136,6 +136,19 @@ class PostDeleteView(View):
     def post(self, request, *args, **kwargs):
         post = PostModel.objects.get(id=request.POST.get('postid'))
         answer = {}
+        post.moderate = 'D'
+        post.date_moderate = datetime.now()
+        answer['answer'] = 'На удаление'
+        post.save()
+        return JsonResponse(answer)
+    
+class CommentDeleteView(View):
+    def post(self, request, *args, **kwargs):
+        comment = CommentModel.objects.get(id=request.POST.get('commentid'))
+        comment.delete()
+        answer = {}
+        answer['answer'] = 'Комментарий удален'
+        return JsonResponse(answer)
 
 
 

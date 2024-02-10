@@ -27,9 +27,17 @@ class PostModel(models.Model):
     date_add = models.DateTimeField('Дата публикации', auto_now_add=True)
     date_edit = models.DateTimeField('Дата редактирования', auto_now=True)
     date_moderate = models.DateTimeField('Дата публикации', null=True, blank=True)
+
+    class Meta:
+        permissions = (
+            ("moderate", "Можем модерировать объявление"),
+        )
     
 
 class CommentModel(models.Model):
+    class Meta:
+        ordering = ['date_add']
+
     author = models.ForeignKey(Profile, verbose_name='Пользователь', related_name='a_comment', on_delete=models.SET_NULL, blank=True, null=True)
     post_model = models.ForeignKey(PostModel, verbose_name='Продукт', related_name='p_comment', on_delete=models.CASCADE, blank=True, null=True)
     text = models.TextField('Текст комментария', max_length=1500)

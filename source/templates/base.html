@@ -12,7 +12,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body style="background-color:rgb(230, 229, 227) !important;">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary row justify-content-between">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary row justify-content-around">
 
             <div class="col-3 d-flex flex-row">
                 <div class="col-6 text-center">
@@ -28,15 +28,19 @@
                 </form>
             </div>
             
-                <div class="col-2 text-center">
-                    <a href="{% url 'accounts:log_in' %}" class="btn btn-primary">Войти</a>
+                <div class="col-4 text-center">
+                    
                     {% if user.is_authenticated %}
-                    <a href="{% url 'moderation' %}" class="btn btn-secondary">Модерация</a>
-                    <a href="{% url 'accounts:log_out' %}" class="btn btn-danger">Выход</a>
-                    <a href="{% url 'accounts:new_post' user.pk %}" class="btn btn-success">Публикация</a>
-                    <a href="{% url 'accounts:profile' user.pk %}" class="link-dark">
-                        <i class="bi bi-person dark fs-1"></i>
-                    </a>
+                        {% if perms.feed.moderate %}
+                            <a href="{% url 'moderation' %}" class="btn btn-secondary">Модерация</a>
+                        {% endif %}
+                        <a href="{% url 'accounts:log_out' %}" class="btn btn-danger">Выход</a>
+                        <a href="{% url 'accounts:new_post' user.pk %}" class="btn btn-success">Публикация</a>
+                        <a href="{% url 'accounts:profile' user.pk %}" class="link-dark">
+                            <i class="bi bi-person dark fs-1"></i>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'accounts:log_in' %}" class="btn btn-primary">Войти</a>
                     {% endif %}
                 </div>
             
@@ -55,7 +59,7 @@
             $.ajax({
                 headers: {"X-CSRFToken": '{{csrf_token}}'},
                 type: 'POST',
-                url: "{% url 'moderation' %}",
+                url: "{% url 'delete_post' %}",
                 data: {
                     postid: $(this).val(),
                     mod: $(this).attr('id'),

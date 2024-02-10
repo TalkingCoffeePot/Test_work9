@@ -19,18 +19,44 @@
         </form>
       {% endif %}
       {% for comment in post.p_comment.all %}
-        <div class="card comments">
+        <div class="card comments" data-artId="{{comment.pk}}">
           <div class="card-body">
             <span class="card-title fs-4 fw-medium">
                 <a href="{% url 'accounts:profile' comment.get_author.pk %}" class="text-dark" style="text-decoration: none;">{{comment.get_author}}</a>
             </span>
             <p class="card-text">{{comment.text}}</p>
+            {% if request.user == comment.author %}
+              <button id='delete_comment' class="btn btn-danger" value="{{comment.pk}}">Удалить</button>
+            {% endif %}
           </div>
             
         </div>
       {% endfor %}
-    </div>
+    </div>  
   </div>
 </div>
+<script>
+  $(document).on('click', '#delete_comment', function(e) {
+      const val = $(this).val()
+      const an = $(this).attr('id')
+      e.preventDefault()
+      $.ajax({
+          headers: {"X-CSRFToken": '{{csrf_token}}'},
+          type: 'POST',
+          url: "{% url 'delete_comment' %}",
+          data: {
+              commentid: $(this).val(),
+              csrfmiddlewaretoken: '{{ csrf_token }}',
+              action: 'post'
+          },
+          success: function(json) {
+              console.log(json)
+              let c = `"${val}"`
+              let comment = document.querySelector(`[data-artId=${c}]`)
 
+              comment.remove()
+          }
+      })
+  })
+</script>
 {% endblock %}

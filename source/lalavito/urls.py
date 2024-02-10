@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from feed.views import FeedView, PostDetailedView, SearchResultsView, ModerateView, PostDeleteView, PostEditView
+from feed.views import FeedView, PostDetailedView, SearchResultsView, ModerateView, PostDeleteView, PostEditView, CommentDeleteView
 from accounts.views import UserRegisterView
 
 urlpatterns = [
@@ -28,6 +28,8 @@ urlpatterns = [
     path('sign_up/', UserRegisterView.as_view()),
     path('feed/<int:post_pk>/', PostDetailedView.as_view(), name='feed_post'),
     path('post_post/<int:post_pk>', PostEditView.as_view(), name='post_edit'),
+    path('delete_post/', PostDeleteView.as_view(), name='delete_post'),
+    path('delete_comment/', CommentDeleteView.as_view(), name='delete_comment'),
     path('search_result/', SearchResultsView.as_view(), name='search_results'),
     path('moderation/', ModerateView.as_view(), name='moderation')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
