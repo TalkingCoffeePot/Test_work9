@@ -1,0 +1,128 @@
+[
+{
+  "model": "feed.category",
+  "pk": 1,
+  "fields": {
+    "title": "Компьютеры"
+  }
+},
+{
+  "model": "feed.category",
+  "pk": 2,
+  "fields": {
+    "title": "Телефоны"
+  }
+},
+{
+  "model": "feed.category",
+  "pk": 3,
+  "fields": {
+    "title": "Игровые консоли"
+  }
+},
+{
+  "model": "feed.category",
+  "pk": 4,
+  "fields": {
+    "title": "Мониторы"
+  }
+},
+{
+  "model": "feed.category",
+  "pk": 5,
+  "fields": {
+    "title": "Ноутбуки"
+  }
+},
+{
+  "model": "feed.category",
+  "pk": 6,
+  "fields": {
+    "title": "Моноблоки"
+  }
+},
+{
+  "model": "feed.category",
+  "pk": 7,
+  "fields": {
+    "title": "Планшеты"
+  }
+},
+{
+  "model": "feed.category",
+  "pk": 8,
+  "fields": {
+    "title": "Электронные книги"
+  }
+},
+{
+  "model": "feed.postmodel",
+  "pk": 1,
+  "fields": {
+    "image": "post_images/poco_f1_1saIqUZ.jpg",
+    "author": 1,
+    "title": "fdsafadsf",
+    "text": "fasdfdsafsafsd",
+    "category": 2,
+    "price": 6500,
+    "moderate": "D",
+    "date_add": "2024-02-10T07:20:55.720Z",
+    "date_edit": "2024-02-10T12:02:09.232Z",
+    "date_moderate": "2024-02-10T17:02:09.232Z"
+  }
+},
+{
+  "model": "feed.postmodel",
+  "pk": 2,
+  "fields": {
+    "image": "post_images/imac.jpg",
+    "author": 1,
+    "title": "imac",
+    "text": "iMac 2016 года, топовой комплектации",
+    "category": 6,
+    "price": 12222,
+    "moderate": "M",
+    "date_add": "2024-02-10T10:30:30.736Z",
+    "date_edit": "2024-02-10T10:34:51.420Z",
+    "date_moderate": "2024-02-10T15:34:51.420Z"
+  }
+},
+{
+  "model": "feed.postmodel",
+  "pk": 3,
+  "fields": {
+    "image": "post_images/ps3.jpg",
+    "author": 2,
+    "title": "ps3",
+    "text": "fgsdgdsfgdfagadsgsagsdg",
+    "category": 3,
+    "price": 10000,
+    "moderate": "W",
+    "date_add": "2024-02-10T11:08:51.687Z",
+    "date_edit": "2024-02-10T11:08:51.687Z",
+    "date_moderate": null
+  }
+},
+{
+  "model": "feed.commentmodel",
+  "pk": 1,
+  "fields": {
+    "author": 2,
+    "post_model": 1,
+    "text": "fewfgweagfawega",
+    "date_add": "2024-02-10",
+    "date_edit": "2024-02-10"
+  }
+},
+{
+  "model": "feed.commentmodel",
+  "pk": 3,
+  "fields": {
+    "author": 3,
+    "post_model": 2,
+    "text": "dsadasdasd",
+    "date_add": "2024-02-10",
+    "date_edit": "2024-02-10"
+  }
+}
+]
